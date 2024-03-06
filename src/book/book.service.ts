@@ -24,4 +24,10 @@ export class BookService {
     if (!newBook) throw new NotFoundException('this id not found');
     return newBook;
   }
+
+  async deleteOneBook(id: string): Promise<Book> {
+    const deletedBook = await this.bookModel.findByIdAndDelete(id);
+    if (!deletedBook) throw new NotFoundException('this id not found');
+    return deletedBook;
+  }
 }
