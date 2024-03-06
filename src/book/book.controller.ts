@@ -14,6 +14,7 @@ import { BookService } from './book.service';
 import { Book } from 'src/schemas/book.schema';
 import { CreateBookDto } from './dtos/create-book.dto';
 import { UpdateBookDto } from './dtos/update-book.dto';
+import { ParseObjectIdPipe } from 'shared/pipes/parseObjectId.pipe';
 
 @Controller('book')
 export class BookController {
@@ -29,7 +30,7 @@ export class BookController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<Book> {
+  async findOne(@Param('id', ParseObjectIdPipe) id: string): Promise<Book> {
     return this.bookService.findOneBook(id);
   }
 
@@ -39,7 +40,7 @@ export class BookController {
   }
   @Patch(':id')
   async updateBook(
-    @Param('id') id: string,
+    @Param('id', ParseObjectIdPipe) id: string,
     @Body() book: UpdateBookDto,
   ): Promise<Book> {
     return this.bookService.updateBook(id, book);
@@ -47,7 +48,7 @@ export class BookController {
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  async deleteOne(@Param('id') id: string): Promise<Book> {
+  async deleteOne(@Param('id', ParseObjectIdPipe) id: string): Promise<Book> {
     return this.bookService.deleteOneBook(id);
   }
 }

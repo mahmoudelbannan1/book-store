@@ -13,6 +13,7 @@ export class BookService {
     const resPerPage = 3;
     const currentPage = Number(params['page']) || 1;
     const skip = resPerPage * (currentPage - 1);
+
     return await this.bookModel.find().limit(resPerPage).skip(skip);
   }
 
@@ -22,6 +23,8 @@ export class BookService {
   }
 
   async findOneBook(id: string): Promise<Book> {
+    // const isValidId = mongoose.isValidObjectId(id);
+    // if (!isValidId) throw new BadRequestException('please enter correct id');
     const book = await this.bookModel.findById(id);
     if (!book) throw new NotFoundException('this id not found');
     return book;
@@ -32,12 +35,16 @@ export class BookService {
   }
 
   async updateBook(id: string, book: UpdateBookDto): Promise<Book> {
+    // const isValidId = mongoose.isValidObjectId(id);
+    // if (!isValidId) throw new BadRequestException('please enter correct id');
     const newBook = await this.bookModel.findByIdAndUpdate(id, book);
     if (!newBook) throw new NotFoundException('this id not found');
     return newBook;
   }
 
   async deleteOneBook(id: string): Promise<Book> {
+    // const isValidId = mongoose.isValidObjectId(id);
+    // if (!isValidId) throw new BadRequestException('please enter correct id');
     const deletedBook = await this.bookModel.findByIdAndDelete(id);
     if (!deletedBook) throw new NotFoundException('this id not found');
     return deletedBook;
