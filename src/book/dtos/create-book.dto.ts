@@ -1,5 +1,5 @@
 import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { Category } from 'src/schemas/book.schema';
+import { Category } from 'src/book/schemas/book.schema';
 
 export class CreateBookDto {
   @IsNotEmpty()

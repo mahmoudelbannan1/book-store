@@ -11,7 +11,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { BookService } from './book.service';
-import { Book } from 'src/schemas/book.schema';
+import { Book } from 'src/book/schemas/book.schema';
 import { CreateBookDto } from './dtos/create-book.dto';
 import { UpdateBookDto } from './dtos/update-book.dto';
 import { ParseObjectIdPipe } from 'shared/pipes/parseObjectId.pipe';
