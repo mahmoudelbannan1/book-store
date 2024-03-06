@@ -8,6 +8,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { BookService } from './book.service';
 import { Book } from 'src/schemas/book.schema';
@@ -17,9 +18,14 @@ import { UpdateBookDto } from './dtos/update-book.dto';
 @Controller('book')
 export class BookController {
   constructor(private readonly bookService: BookService) {}
-  @Get()
-  async findAll(): Promise<Book[]> {
-    return this.bookService.findAllBooks();
+  @Get() // the query is for pagination
+  async findAll(@Query() query: string): Promise<Book[]> {
+    return this.bookService.findAllBooks(query);
+  }
+
+  @Get('search')
+  async findByTitle(@Query() query: string): Promise<Book[]> {
+    return this.bookService.searchByBookTitle(query);
   }
 
   @Get(':id')

@@ -8,17 +8,29 @@ import { UpdateBookDto } from './dtos/update-book.dto';
 export class BookService {
   constructor(@InjectModel(Book.name) private bookModel: Model<Book>) {}
 
-  async findAllBooks(): Promise<Book[]> {
-    return await this.bookModel.find();
+  async findAllBooks(params: string): Promise<Book[]> {
+    //add pagination each page has 3 books
+    const resPerPage = 3;
+    const currentPage = Number(params['page']) || 1;
+    const skip = resPerPage * (currentPage - 1);
+    return await this.bookModel.find().limit(resPerPage).skip(skip);
   }
+
+  async searchByBookTitle(query: string): Promise<Book[]> {
+    console.log(query['keyword']);
+    return await this.bookModel.find({ title: query['keyword'] });
+  }
+
   async findOneBook(id: string): Promise<Book> {
     const book = await this.bookModel.findById(id);
     if (!book) throw new NotFoundException('this id not found');
     return book;
   }
+
   async createBook(book: Book): Promise<Book> {
     return await this.bookModel.create(book);
   }
+
   async updateBook(id: string, book: UpdateBookDto): Promise<Book> {
     const newBook = await this.bookModel.findByIdAndUpdate(id, book);
     if (!newBook) throw new NotFoundException('this id not found');
