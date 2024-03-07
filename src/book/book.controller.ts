@@ -9,12 +9,15 @@ import {
   Patch,
   Post,
   Query,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { BookService } from './book.service';
 import { Book } from 'src/book/schemas/book.schema';
 import { CreateBookDto } from './dtos/create-book.dto';
 import { UpdateBookDto } from './dtos/update-book.dto';
 import { ParseObjectIdPipe } from 'shared/pipes/parseObjectId.pipe';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('book')
 export class BookController {
@@ -35,8 +38,9 @@ export class BookController {
   }
 
   @Post()
-  async createBook(@Body() book: CreateBookDto): Promise<Book> {
-    return this.bookService.createBook(book);
+  @UseGuards(AuthGuard())
+  async createBook(@Body() book: CreateBookDto, @Req() req): Promise<Book> {
+    return this.bookService.createBook(book, req.user);
   }
   @Patch(':id')
   async updateBook(
