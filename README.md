@@ -68,7 +68,7 @@ $ npm run test:cov
 
 ```js
 headers = {
-  token: 'yourOwnToken',
+  Authorization: 'Bearer yourOwnToken',
 };
 ```
 
