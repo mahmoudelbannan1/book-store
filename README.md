@@ -58,16 +58,101 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
+## Token
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+> In order to use some of the endpoints you will need first to login and use your own token
 
-## Stay in touch
+#### In Request headers add prop calls "token"
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+#### example:
 
-## License
+```js
+headers = {
+  token: 'yourOwnToken',
+};
+```
 
-Nest is [MIT licensed](LICENSE).
+#### And then send this as header, something like this
+
+```js
+response = requests.get(url, { headers });
+```
+
+## API Endpoints
+<h2>for signup: method => post</h2>
+<a>http://localhost:3000/auth/signup </a>
+<h2> body</h2>
+<p>for example</p> 
+{
+"name":"bannan",
+"email":"mahmoud@gmail.com", 
+"password":"1234567"
+}
+<hr>
+<h2>for login: method => get</h2>
+<a>http://localhost:3000/auth/login </a>
+<h2> body</h2>
+<p>for example</p> 
+{
+"email":"mahmoud@gmail.com", 
+"password":"1234567"
+}
+<hr>
+
+<h2>get all books: method => get</h2>
+<a>http://localhost:3000/book </a>
+<hr>
+
+<h2>for get book by id: method => get</h2>
+<a>http://localhost:3000/book/65e85d1712bcdb74fdf10dff </a>
+<h2> body</h2>
+<p>for example</p> 
+{
+"email":"mahmoud@gmail.com", 
+"password":"1234567"
+}
+<hr>
+
+
+
+<h2>create new book: method => POST</h2>
+<a>http://localhost:3000/book</a>
+<h2> body</h2>
+<p>for example</p> 
+ {
+  "title": "king 1",
+  "description": "king bannan life ",
+  "author": "mahmoud elbannan",
+  "price": 5000,
+  "category": "Adventure"
+}
+
+<hr>
+
+
+<h2>update existing book: method => PATCH</h2>
+<a>http://localhost:3000/book/65e85d1712bcdb74fdf10dff</a>
+<h2> body</h2>
+<p>for example</p> 
+ {
+  "title": "king 1",
+  "description": "king bannan life ",
+  "author": "mahmoud elbannan",
+  "price": 5000,
+  "category": "Adventure"
+}
+<hr>
+
+<h2>
+delete book: method => DELETE</h2>
+<a>http://localhost:3000/book/65e85d1712bcdb74fdf10dff</a>
+<h2> body</h2>
+<p>for example</p> 
+ {
+  "title": "king 1",
+  "description": "king bannan life ",
+  "author": "mahmoud elbannan",
+  "price": 5000,
+  "category": "Adventure"
+}
+<hr>
